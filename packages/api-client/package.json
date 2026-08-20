@@ -13,6 +13,7 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@climbing-tracker/domain": "workspace:*",
     "@climbing-tracker/validation": "workspace:*"
   },
   "devDependencies": {

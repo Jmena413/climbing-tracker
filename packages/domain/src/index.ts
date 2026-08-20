@@ -23,6 +23,27 @@ export const V_SCALE_GRADES = [
 export type VScaleGrade = (typeof V_SCALE_GRADES)[number];
 export type Grade = { system: "V_SCALE"; value: VScaleGrade };
 
+export interface Session {
+  id: string;
+  userId: string;
+  gymId: string | null;
+  startedAt: Date;
+  endedAt: Date | null;
+  notes: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface SessionDto {
+  id: string;
+  gymId: string | null;
+  startedAt: string;
+  endedAt: string | null;
+  notes: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface SessionClimb {
   id: string;
   sessionId: string;
