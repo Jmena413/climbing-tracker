@@ -1,0 +1,16 @@
+{
+  "expo": {
+    "name": "Climbing Tracker",
+    "slug": "climbing-tracker",
+    "scheme": "climbingtracker",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "platforms": ["ios"],
+    "plugins": ["expo-router"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.example.climbingtracker"
+    },
+    "experiments": { "typedRoutes": true }
+  }
+}

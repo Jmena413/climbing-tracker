@@ -1,0 +1,23 @@
+{
+  "name": "@climbing-tracker/api-client",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint src",
+    "typecheck": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@climbing-tracker/validation": "workspace:*"
+  },
+  "devDependencies": {
+    "eslint": "9.35.0",
+    "typescript": "5.9.2",
+    "vitest": "3.2.4"
+  }
+}
