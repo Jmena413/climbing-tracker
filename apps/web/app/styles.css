@@ -1,0 +1,39 @@
+:root {
+  color-scheme: dark;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  background: #101612;
+  color: #f5f7f4;
+}
+body {
+  margin: 0;
+}
+main {
+  margin: 0 auto;
+  max-width: 48rem;
+  padding: 6rem 1.5rem;
+}
+h1 {
+  font-size: clamp(3rem, 10vw, 6rem);
+  letter-spacing: -0.06em;
+  line-height: 0.9;
+  margin: 1rem 0;
+}
+p {
+  color: #c2cec5;
+  font-size: 1.15rem;
+  line-height: 1.6;
+}
+.eyebrow {
+  color: #9ee493;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+section {
+  background: #19231c;
+  border: 1px solid #314436;
+  border-radius: 1rem;
+  margin-top: 3rem;
+  padding: 1.5rem;
+}

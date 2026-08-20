@@ -1,0 +1,8 @@
+.expo
+.next
+coverage
+dist
+node_modules
+pnpm-lock.yaml
+
+AGENTS.md

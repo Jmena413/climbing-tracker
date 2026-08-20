@@ -1,0 +1,55 @@
+generator client { provider = "prisma-client-js" }
+datasource db { provider = "postgresql"; url = env("DATABASE_URL") }
+
+model User {
+  id String @id @default(uuid()) @db.Uuid
+  authProviderId String @unique @map("auth_provider_id")
+  email String @unique
+  displayName String? @map("display_name")
+  sessions Session[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  @@map("users")
+}
+
+model Gym {
+  id String @id @default(uuid()) @db.Uuid
+  name String
+  city String?
+  state String?
+  country String
+  sessions Session[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  @@map("gyms")
+}
+
+model Session {
+  id String @id @default(uuid()) @db.Uuid
+  userId String @db.Uuid @map("user_id")
+  gymId String? @db.Uuid @map("gym_id")
+  startedAt DateTime @map("started_at")
+  endedAt DateTime? @map("ended_at")
+  notes String?
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  gym Gym? @relation(fields: [gymId], references: [id], onDelete: SetNull)
+  climbs SessionClimb[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  @@index([userId, startedAt(sort: Desc)])
+  @@map("sessions")
+}
+
+model SessionClimb {
+  id String @id @default(uuid()) @db.Uuid
+  sessionId String @db.Uuid @map("session_id")
+  gradeSystem String @map("grade_system")
+  gradeValue String @map("grade_value")
+  attempts Int
+  sent Boolean
+  session Session @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  @@index([sessionId, createdAt])
+  @@map("session_climbs")
+}
