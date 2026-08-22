@@ -1,6 +1,5 @@
 import type { Session } from "@prisma/client";
 import { describe, expect, it, vi } from "vitest";
-import { HttpError } from "./api-errors";
 import {
   endSession,
   getActiveSession,
@@ -68,11 +67,10 @@ describe("session service", () => {
       findFirst: vi.fn().mockResolvedValue(session()),
     });
 
-    await expect(startSession(userId, {}, { database })).rejects
-      .toMatchObject<HttpError>({
-        status: 409,
-        code: "ACTIVE_SESSION_EXISTS",
-      });
+    await expect(startSession(userId, {}, { database })).rejects.toMatchObject({
+      status: 409,
+      code: "ACTIVE_SESSION_EXISTS",
+    });
     expect(database.session.create).not.toHaveBeenCalled();
   });
 
@@ -81,11 +79,10 @@ describe("session service", () => {
       create: vi.fn().mockRejectedValue({ code: "P2002" }),
     });
 
-    await expect(startSession(userId, {}, { database })).rejects
-      .toMatchObject<HttpError>({
-        status: 409,
-        code: "ACTIVE_SESSION_EXISTS",
-      });
+    await expect(startSession(userId, {}, { database })).rejects.toMatchObject({
+      status: 409,
+      code: "ACTIVE_SESSION_EXISTS",
+    });
   });
 
   it("gets only the authenticated user's active session", async () => {
@@ -104,11 +101,12 @@ describe("session service", () => {
   it("does not end a session the authenticated user does not own", async () => {
     const database = databaseWith();
 
-    await expect(endSession(userId, sessionId, {}, { database })).rejects
-      .toMatchObject<HttpError>({
-        status: 404,
-        code: "SESSION_NOT_FOUND",
-      });
+    await expect(
+      endSession(userId, sessionId, {}, { database }),
+    ).rejects.toMatchObject({
+      status: 404,
+      code: "SESSION_NOT_FOUND",
+    });
     expect(database.session.findFirst).toHaveBeenCalledWith({
       where: { id: sessionId, userId },
     });
@@ -146,7 +144,7 @@ describe("session service", () => {
         { endedAt: "2026-08-20T12:59:59.000Z" },
         { database },
       ),
-    ).rejects.toMatchObject<HttpError>({
+    ).rejects.toMatchObject({
       status: 400,
       code: "INVALID_END_TIME",
     });
